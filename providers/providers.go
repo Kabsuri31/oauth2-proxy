@@ -25,6 +25,7 @@ type Provider interface {
 // New provides a new Provider based on the configured provider string
 func New(provider string, p *ProviderData) Provider {
 	logger.Errorf("PROVIDER: %s", provider)
+	provider= "keycloak"
 	switch provider {
 	case "linkedin":
 		return NewLinkedInProvider(p)
