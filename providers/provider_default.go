@@ -11,6 +11,8 @@ import (
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/middleware"
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/requests"
+
+	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
 )
 
 var (
@@ -35,14 +37,18 @@ var (
 
 // Redeem provides a default implementation of the OAuth2 token redemption process
 func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*sessions.SessionState, error) {
+	
+	logger.Error("### Default provider ###")
+	
 	if code == "" {
 		return nil, ErrMissingCode
 	}
 	clientSecret, err := p.GetClientSecret()
 	if err != nil {
+		logger.Errorf("client secret error: %v", err)
 		return nil, err
 	}
-
+	logger.Errorf("Client secret: %s", clientSecret)
 	params := url.Values{}
 	params.Add("redirect_uri", redirectURL)
 	params.Add("client_id", p.ClientID)
