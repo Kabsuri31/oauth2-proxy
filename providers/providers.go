@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
+
+	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
 )
 
 // Provider represents an upstream identity provider implementation
@@ -22,6 +24,7 @@ type Provider interface {
 
 // New provides a new Provider based on the configured provider string
 func New(provider string, p *ProviderData) Provider {
+	logger.Errorf("PROVIDER: %s", provider)
 	switch provider {
 	case "linkedin":
 		return NewLinkedInProvider(p)
