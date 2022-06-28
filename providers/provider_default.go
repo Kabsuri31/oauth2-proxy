@@ -74,6 +74,7 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 	if result.Error() != nil {
 		return nil, result.Error()
 	}
+	fmt.Println("result:",result, result.Error())
 
 	// blindly try json and x-www-form-urlencoded
 	var jsonResponse struct {
@@ -85,10 +86,10 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 			AccessToken: jsonResponse.AccessToken,
 		}, nil
 	}
-
+	fmt.Println("Result Body", string(result.Body()))
 	values, err := url.ParseQuery(string(result.Body()))
 
-	fmt.Println("Values", values)
+	
 	if err != nil {
 		return nil, err
 	}
