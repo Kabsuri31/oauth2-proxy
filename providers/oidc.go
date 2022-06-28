@@ -30,9 +30,10 @@ var _ Provider = (*OIDCProvider)(nil)
 func (p *OIDCProvider) Redeem(ctx context.Context, redirectURL, code string) (*sessions.SessionState, error) {
 	clientSecret, err := p.GetClientSecret()
 	if err != nil {
+		logger.Errorf("checkpoint: %v", err)
 		return nil, err
 	}
-
+	logger.Errorf("CHECKPOINT: %s", clientSecret)
 	c := oauth2.Config{
 		ClientID:     p.ClientID,
 		ClientSecret: clientSecret,
