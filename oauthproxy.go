@@ -809,15 +809,18 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 func (p *OAuthProxy) redeemCode(req *http.Request) (*sessionsapi.SessionState, error) {
 	code := req.Form.Get("code")
+	logger.Errorf("Printing form code: %s and %v", code,req)
 	if code == "" {
 		return nil, providers.ErrMissingCode
 	}
 
 	redirectURI := p.getOAuthRedirectURI(req)
+	logger.Errorf("Printing redirect uri: %s", redirectURI)
 	s, err := p.provider.Redeem(req.Context(), redirectURI, code)
 	if err != nil {
 		return nil, err
 	}
+	logger.Errorf("Printing s: %s", s)
 	return s, nil
 }
 
