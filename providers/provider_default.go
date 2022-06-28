@@ -72,23 +72,23 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 		SetHeader("Content-Type", "application/x-www-form-urlencoded").
 		Do()
 	if result.Error() != nil {
+		fmt.Println("Error in post request.")
 		return nil, result.Error()
 	}
-	fmt.Println("result:",result, result.Error())
+	fmt.Println("result:",string(result.Body()))
 
 	// blindly try json and x-www-form-urlencoded
 	var jsonResponse struct {
 		AccessToken string `json:"access_token"`
 	}
+	fmt.Println("jsonResponse",jsonResponse)
 	err = result.UnmarshalInto(&jsonResponse)
 	if err == nil {
 		return &sessions.SessionState{
 			AccessToken: jsonResponse.AccessToken,
 		}, nil
 	}
-	fmt.Println("Result Body", string(result.Body()))
 	values, err := url.ParseQuery(string(result.Body()))
-
 	
 	if err != nil {
 		return nil, err
