@@ -816,6 +816,7 @@ func (p *OAuthProxy) redeemCode(req *http.Request) (*sessionsapi.SessionState, e
 
 	redirectURI := p.getOAuthRedirectURI(req)
 	logger.Errorf("Printing redirect uri: %s", redirectURI)
+	fmt.Println("STARTING REDEEM...")
 	s, err := p.provider.Redeem(req.Context(), redirectURI, code)
 	if err != nil {
 		logger.Errorf("Printing error: %v", err)
