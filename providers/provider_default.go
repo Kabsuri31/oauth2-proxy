@@ -54,11 +54,11 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 	fmt.Println("redirect_uri", redirectURL)
 	fmt.Println("client_id", p.ClientID)
 	fmt.Println("code", code)
-	fmt.Println("client_secret+"clientSecret+"##########")
+	fmt.Println("client_secret+"+clientSecret+"##########")
 
 	params.Add("redirect_uri", redirectURL)
 	params.Add("client_id", p.ClientID)
-	params.Add("client_secret", clientSecret)
+	params.Add("client_secret", "587d6ef6-47cb-4ded-a73f-6c85f9738194")
 	params.Add("code", code)
 	params.Add("grant_type", "authorization_code")
 	if p.ProtectedResource != nil && p.ProtectedResource.String() != "" {
