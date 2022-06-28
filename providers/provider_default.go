@@ -48,8 +48,14 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 		logger.Errorf("client secret error: %v", err)
 		return nil, err
 	}
-	logger.Errorf("Client secret: %s", clientSecret)
 	params := url.Values{}
+
+	fmt.Println("####################PRINTITNG VALUES###############")
+	fmt.Println("redirect_uri", redirectURL)
+	fmt.Println("client_id", p.ClientID)
+	fmt.Println("code", code)
+	fmt.Println("client_secret", clientSecret)
+
 	params.Add("redirect_uri", redirectURL)
 	params.Add("client_id", p.ClientID)
 	params.Add("client_secret", clientSecret)
@@ -81,6 +87,8 @@ func (p *ProviderData) Redeem(ctx context.Context, redirectURL, code string) (*s
 	}
 
 	values, err := url.ParseQuery(string(result.Body()))
+
+	fmt.Println("Values", values)
 	if err != nil {
 		return nil, err
 	}
